@@ -10,7 +10,7 @@ npm i ln-verifymessage-js
 
 ### Usage
 
-#### Derive nodeId from signature and message.
+#### Derive nodeId from signature and message
 
 
 ```ts
@@ -23,7 +23,8 @@ const derivedNodeId = deriveNodeId(zbaseSignature, messageThatHasBeenSigned);
 console.log("Message has been signed by", derivedNodeId);
 ```
 
-Be aware: `deriveNodeId` does not check if the message has been signed by this specific signature.
+Be aware: `deriveNodeId` does not check if the message has been signed by the specific signature nor does it check
+if node exists.
 
 
 #### Check if the signature and message has been signed by a specific node
@@ -39,7 +40,7 @@ if (derivedNodeId !== expectedNodeId) {
 
 ### Sign message
 
-Node operators can sign message with (Ride the Lightning)[https://github.com/Ride-The-Lightning/RTL] and (Thunderhub)[https://thunderhub.io/].
+Node operators can sign message with [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL) and [Thunderhub](https://thunderhub.io/).
 
 If a user has access to a terminal messages can be signed directly with the cli's.
 
