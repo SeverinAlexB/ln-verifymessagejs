@@ -24,7 +24,7 @@ console.log("Message has been signed by", derivedNodeId);
 ```
 
 Be aware: `deriveNodeId` does not check if the message has been signed by the specific signature nor does it check
-if node exists.
+if the node exists.
 
 
 #### Check if the signature and message has been signed by a specific node
@@ -45,13 +45,13 @@ Node operators can sign message with [Thunderhub](https://thunderhub.io/) and [R
 If a user has access to a terminal messages can be signed directly with the cli.
 
 ```bash
-# LND
+# lnd
 lncli signmessage --msg MyMessageToSign
 # {
 #     "signature": "rynmoqhhadjsttaracxgo9nhkoioi6peib8k18dekrih4hxpp36zcbgc6ntyrggc11uhjcb9prcx5py6qo16bk89i458r4n51ghggnxc"
 # }
 
-# cLightning
+# c-ightning
 lightning-cli signmessage MyMessageToSign
 
 # {
