@@ -4,7 +4,8 @@ A simple library to derive Lightning Network node public keys from signed messag
 
 ### Usage
 
-Derive nodeId from a message and the according signature.
+#### Derive nodeId from signature and message.
+
 
 ```ts
 import { deriveNodeId } from "ln-verify-message";
@@ -16,8 +17,10 @@ const derivedNodeId = deriveNodeId(zbaseSignature, messageThatHasBeenSigned);
 console.log("Message has been signed by", derivedNodeId);
 ```
 
+Be aware: `deriveNodeId` does not check if the message has been signed by this specific signature.
 
-Check if the signature and message has been signed by a specific node.
+
+#### Check if the signature and message has been signed by a specific node
 
 ```ts
 const expectedNodeId = "02ac77f9f7397a64861b573c9e8b8652ce2e67a05150fd166831e9fc167670dfd8";
