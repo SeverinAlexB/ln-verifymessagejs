@@ -14,35 +14,10 @@ const sjcl = require('sjcl');
 const signedMessageZbase32 = 'rdq7e66b8gb1x4c8qs383tmi9uo76jdraqbfj8ic7xd1gxyhztfwgdhqhumfehc4dxbed7e5ycf4u6wm9fedfoukz9uqk471okwocw31';
 
 const signedMessage = zbase32.decode(signedMessageZbase32);
-console.log('signedMessage', signedMessage);
-/**
- * Output:
- * signedMessage Uint8Array(65) [
-   32, 105, 119, 116,  41,  52, 171,  77,  62,  60,  52,
-  117, 236, 226,  67,  57, 233, 181, 106, 235, 154, 255,
-  124, 190,  37,   8, 184, 206, 147,  46, 133, 110,  65,
-   29,   3,  53,  34, 211, 175, 107, 243, 202, 187, 117,
-  172,   3,  24, 153, 152, 196, 254, 117,  21,  41,  52,
-  186,  41, 106, 143,  90, 187, 166,  29,  86, 111
-]
- */
+
 
 const recoveryId = signedMessage[0] - 31;
 const signature = signedMessage.slice(1, 65);
-
-console.log('signature', signature, 'recoveryId', recoveryId);
-/**
- * Output:
- * signature Uint8Array(64) [
-  105, 119, 116,  41,  52, 171,  77,  62,  60,  52, 117,
-  236, 226,  67,  57, 233, 181, 106, 235, 154, 255, 124,
-  190,  37,   8, 184, 206, 147,  46, 133, 110,  65,  29,
-    3,  53,  34, 211, 175, 107, 243, 202, 187, 117, 172,
-    3,  24, 153, 152, 196, 254, 117,  21,  41,  52, 186,
-   41, 106, 143,  90, 187, 166,  29,  86, 111
-] 
-recoveryId 1
- */
 
 function bufToBn(buf) {
     var hex = [];
@@ -92,11 +67,7 @@ const msgHash = sjcl.codec.hex.fromBits(dsha256)
 console.log('dsha256', dsha256, msgHash);
 
 const point = secp.Point.fromSignature(msgHash, sig, recoveryId);
-console.log(point, point.assertValidity())
-console.log('nodeId:', typeof msgHash === 'string' ? point.toHex() : point.toRawBytes());
-console.log(point.toHex(true))
+console.log('nodeId:', point.toHex(true))
 
 
-// secp.Signature.fromHex(signature); // throws Error('Signature.fromHex: Invalid signature')
-// secp.recoverPublicKey throws the same error
 
