@@ -2,13 +2,13 @@
 
 A simple library to derive Lightning Network node public keys from signed messages.
 
-### Install
+## Install
 
 ```bash
 npm i ln-verifymessage-js
 ```
 
-### Usage
+## Usage
 
 #### Derive nodeId from signature and message
 
@@ -38,11 +38,11 @@ if (derivedNodeId !== expectedNodeId) {
 ```
 
 
-### Sign message
+## Sign message
 
-Node operators can sign message with [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL) and [Thunderhub](https://thunderhub.io/).
+Node operators can sign message with [Thunderhub](https://thunderhub.io/) and [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL).
 
-If a user has access to a terminal messages can be signed directly with the cli's.
+If a user has access to a terminal messages can be signed directly with the cli.
 
 ```bash
 # LND
