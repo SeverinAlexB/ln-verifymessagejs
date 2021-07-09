@@ -19,7 +19,7 @@ test("deriveNodeId invalid message", () => {
     const zBase = 'rbwzq7bjg1iw4xthgt463a1d88w5k4zmum9z3xtfbnhc7r3qoizrn8edgwtp8m5m6xfms7pcyccjuggr934tkkjwzewsid44zqub4iux';
     const message = 'InvalidMessage';
     const extractedNodeId = deriveNodeId(zBase, message);
-    // Even though an invali message is provided, a derived public key is still returned.
+    // Even though an invalid message is provided, a derived public key is still returned.
     // It is not possible to check if the message matched the signature without knowing the nodeId before.
     expect(extractedNodeId).toEqual('029b9b9745934fbd829f8a28477439b10c3fb565b58010ebdb77303243357bca88');
 });
