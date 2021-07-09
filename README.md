@@ -46,7 +46,16 @@ If a user has access to a terminal messages can be signed directly with the cli'
 ```bash
 # LND
 lncli signmessage --msg MyMessageToSign
+# {
+#     "signature": "rynmoqhhadjsttaracxgo9nhkoioi6peib8k18dekrih4hxpp36zcbgc6ntyrggc11uhjcb9prcx5py6qo16bk89i458r4n51ghggnxc"
+# }
 
 # cLightning
 lightning-cli signmessage MyMessageToSign
+
+# {
+#    "signature": "ddd47bc1398327e98775b27cc575fce1df2464c382549eacebc7233c1cbc4b430f8ee4d654719a1bc281f51b030ba9fa8bf95032c26abfe6e56bb282a9065332",
+#    "recid": "01",
+#    "zbase": "rdq7e66b8gb1x4c8qs383tmi9uo76jdraqbfj8ic7xd1gxyhztfwgdhqhumfehc4dxbed7e5ycf4u6wm9fedfoukz9uqk471okwocw31"
+# }
 ```
