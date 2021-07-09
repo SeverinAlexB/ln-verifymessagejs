@@ -1,5 +1,6 @@
-import * as zbase32 from 'zbase32';
+
 import * as secp from "noble-secp256k1";
+import { zbase32 } from "./zbase";
 const sjcl = require('sjcl');
 
 /**
