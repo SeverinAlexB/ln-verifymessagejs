@@ -1,5 +1,6 @@
 const zbase32 = require ('zbase32');
 const secp = require("noble-secp256k1");
+const sjcl = require('sjcl');
 
 /**
  * Algorithm according to https://twitter.com/rusty_twit/status/1182102005914800128
@@ -10,7 +11,7 @@ const secp = require("noble-secp256k1");
 // Pubkey 02ac77f9f7397a64861b573c9e8b8652ce2e67a05150fd166831e9fc167670dfd8
 
 
-const signedMessageZbase32 = 'rbwzq7bjg1iw4xthgt463a1d88w5k4zmum9z3xtfbnhc7r3qoizrn8edgwtp8m5m6xfms7pcyccjuggr934tkkjwzewsid44zqub4iux';
+const signedMessageZbase32 = 'rdq7e66b8gb1x4c8qs383tmi9uo76jdraqbfj8ic7xd1gxyhztfwgdhqhumfehc4dxbed7e5ycf4u6wm9fedfoukz9uqk471okwocw31';
 
 const signedMessage = zbase32.decode(signedMessageZbase32);
 console.log('signedMessage', signedMessage);
@@ -43,7 +44,59 @@ console.log('signature', signature, 'recoveryId', recoveryId);
 recoveryId 1
  */
 
-secp.Signature.fromHex(signature); // throws Error('Signature.fromHex: Invalid signature')
-// secp.recoverPublicKey throws the same error
+function bufToBn(buf) {
+    var hex = [];
+    u8 = Uint8Array.from(buf);
+  
+    u8.forEach(function (i) {
+      var h = i.toString(16);
+      if (h.length % 2) { h = '0' + h; }
+      hex.push(h);
+    });
+  
+    return BigInt('0x' + hex.join(''));
+  }
 
+  function dec2hex(str){ // .toString(16) only works up to 2^53
+    var dec = str.toString().split(''), sum = [], hex = [], i, s
+    while(dec.length){
+        s = 1 * dec.shift()
+        for(i = 0; s || i < sum.length; i++){
+            s += (sum[i] || 0) * 10
+            sum[i] = s % 16
+            s = (s - sum[i]) / 16
+        }
+    }
+    while(sum.length){
+        hex.push(sum.pop().toString(16))
+    }
+    return hex.join('')
+}
+
+const rBytes = signature.slice(0,32);
+const sBytes = signature.slice(32, 64);
+const r = bufToBn(rBytes);
+const s = bufToBn(sBytes)
+
+
+const sig = new secp.Signature(r, s);
+console.log(sig, 'valid:', sig.assertValidity());
+
+
+
+const userMessage = 'test';
+const message = "Lightning Signed Message:" + userMessage;
+
+const dsha256 = sjcl.hash.sha256.hash(sjcl.hash.sha256.hash(message));
+const msgHash = sjcl.codec.hex.fromBits(dsha256)
+console.log('dsha256', dsha256, msgHash);
+
+const point = secp.Point.fromSignature(msgHash, sig, recoveryId);
+console.log(point, point.assertValidity())
+console.log('nodeId:', typeof msgHash === 'string' ? point.toHex() : point.toRawBytes());
+console.log(point.toHex(true))
+
+
+// secp.Signature.fromHex(signature); // throws Error('Signature.fromHex: Invalid signature')
+// secp.recoverPublicKey throws the same error
 
