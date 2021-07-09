@@ -1,12 +1,12 @@
 {
-  "name": "ln-verifymessage-js",
+  "name": "ln-verifymessagejs",
   "version": "0.0.1",
   "description": "Checks message signatures like lightning-cli checkmessge or lncli signmessage.",
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:Sebubu/ln-verifymessage-js.git"
+    "url": "git+git@github.com:Sebubu/ln-verifymessagejs.git"
   },
-  "homepage": "https://github.com/Sebubu/ln-verifymessage-js#readme",
+  "homepage": "https://github.com/Sebubu/ln-verifymessagejs#readme",
   "keywords": [
     "Lightning Network",
     "Bitcoin"

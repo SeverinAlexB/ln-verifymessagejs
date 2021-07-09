@@ -1,11 +1,11 @@
-# ln-verifymessage-js
+# ln-verifymessagejs
 
 A simple library to derive Lightning Network node public keys from signed messages.
 
 ## Install
 
 ```bash
-npm i ln-verifymessage-js
+npm i ln-verifymessagejs
 ```
 
 ## Usage
@@ -14,9 +14,9 @@ npm i ln-verifymessage-js
 
 
 ```ts
-import { deriveNodeId } from "ln-verifymessage-js";
+import { deriveNodeId } from "ln-verifymessagejs";
 
-const messageThatHasBeenSigned = "ln-verifymessage-js";
+const messageThatHasBeenSigned = "ln-verifymessagejs";
 const zbaseSignature = "rynmoqhhadjsttaracxgo9nhkoioi6peib8k18dekrih4hxpp36zcbgc6ntyrggc11uhjcb9prcx5py6qo16bk89i458r4n51ghggnxc";
 
 const derivedNodeId = deriveNodeId(zbaseSignature, messageThatHasBeenSigned);
