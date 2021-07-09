@@ -1,6 +1,6 @@
 # ln-verifymessagejs
 
-A simple library to derive Lightning Network node public keys from signed messages.
+A simple library to derive Lightning Network node public keys from signed messages. No need for a running Lightning Network node. Everything is done in js.
 
 ## Install
 
