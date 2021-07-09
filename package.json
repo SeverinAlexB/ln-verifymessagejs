@@ -1,17 +1,25 @@
 {
-  "name": "verifymessage",
-  "version": "1.0.0",
-  "description": "",
+  "name": "ln-verifymessage-js",
+  "version": "0.0.1",
+  "description": "Checks message signatures like lightning-cli checkmessge or lncli signmessage.",
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:Sebubu/ln-verifymessage-js.git"
+  },
+  "homepage": "https://github.com/Sebubu/ln-verifymessage-js#readme",
+  "keywords": [
+    "Lightning Network",
+    "Bitcoin"
+  ],
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Severin Bühler",
   "license": "ISC",
   "dependencies": {
     "noble-secp256k1": "^1.2.7",
-    "sha.js": "^2.4.11",
     "sjcl": "^1.0.8",
     "zbase32": "^1.0.4"
   }
