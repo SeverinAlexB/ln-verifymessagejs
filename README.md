@@ -48,10 +48,9 @@ if (derivedNodeId !== expectedNodeId) {
 ## Sign message
 
 Node operators can sign message with [Thunderhub](https://thunderhub.io/) or [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL).
-
 If a user has access to a terminal messages can be signed directly with the cli.
 
-**lnd**
+**lnd** [signmessage](https://api.lightning.community/#signmessage)
 ```bash
 
 lncli signmessage --msg MyMessageToSign
@@ -59,7 +58,9 @@ lncli signmessage --msg MyMessageToSign
 #     "signature": "rynmoqhhadjsttaracxgo9nhkoioi6peib8k18dekrih4hxpp36zcbgc6ntyrggc11uhjcb9prcx5py6qo16bk89i458r4n51ghggnxc"
 # }
 ```
-**c-ightning**
+
+
+**c-ightning** [signmessage](https://lightning.readthedocs.io/lightning-signmessage.7.html)
 ```bash
 lightning-cli signmessage MyMessageToSign
 # {
@@ -71,7 +72,8 @@ lightning-cli signmessage MyMessageToSign
 # Use the zbase field
 ```
 
-**eclair** (See [#1499](https://github.com/ACINQ/eclair/pull/1499))
+
+**eclair** [signmessage](https://github.com/ACINQ/eclair/pull/1499)
 ```bash
 
 eclair-cli signmessage --msg=$(echo -n 'MyMessageToSign' | base64)
