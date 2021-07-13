@@ -101,7 +101,7 @@ function encode32bitNumber(int) {
     return encode(fromNumber(int));
 }
 
-function decode(x) {
+function decode(x): Uint8Array {
     return from5bit(x.split('').map((chr) => MNET32Reverse[chr]));
 }
 
