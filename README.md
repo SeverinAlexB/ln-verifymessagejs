@@ -2,6 +2,13 @@
 
 A simple library to derive Lightning Network node ids from signed messages. No need for running Lightning Network node. Everything is done in js.
 
+### Tested implementations:
+- lnd
+- c-lightning
+- eclair
+
+Basically, all implementations that follow the [lnd standard](https://twitter.com/rusty_twit/status/1182102005914800128) and output zbase or hex are supported.
+
 ## Install
 
 ```bash
@@ -40,7 +47,7 @@ if (derivedNodeId !== expectedNodeId) {
 
 ## Sign message
 
-Node operators can sign message with [Thunderhub](https://thunderhub.io/) and [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL).
+Node operators can sign message with [Thunderhub](https://thunderhub.io/) or [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL).
 
 If a user has access to a terminal messages can be signed directly with the cli.
 
@@ -54,7 +61,6 @@ lncli signmessage --msg MyMessageToSign
 ```
 **c-ightning**
 ```bash
-
 lightning-cli signmessage MyMessageToSign
 # {
 #    "signature": "ddd47bc1398327e98775b27cc575fce1df2464c382549eacebc7233c1cbc4b430f8ee4d654719a1bc281f51b030ba9fa8bf95032c26abfe6e56bb282a9065332",
@@ -75,6 +81,6 @@ eclair-cli signmessage --msg=$(echo -n 'MyMessageToSign' | base64)
 #   "signature": "1f730dce842c31b692dc041c2d0f00423d2a2a67b0c63c1a905d500f09652a5b1a036763a1603333fa589ae92d1f7963428ff170e976d0966a113f4b9f9d0efc7f"
 # }
 
-# eclair signature is in hex. Convert hex to zbase:
-echo -n "${eclair_signature}" | xxd -revert -plain | zbase32-encode
+# Use the signature field. It's hex
 ```
+
