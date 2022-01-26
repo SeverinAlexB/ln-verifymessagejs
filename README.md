@@ -47,7 +47,7 @@ if (derivedNodeId !== expectedNodeId) {
 
 ## Sign message
 
-Node operators can sign message with [Thunderhub](https://thunderhub.io/) or [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL).
+Node operators can sign message with [Thunderhub or Ride the Lightning](https://lightningnetwork.plus/questions/46).
 If a user has access to a terminal messages can be signed directly with the cli.
 
 **lnd** [signmessage](https://api.lightning.community/#signmessage)
