@@ -1,6 +1,6 @@
 {
   "name": "ln-verifymessagejs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Checks message signatures like lightning-cli checkmessge or lncli signmessage.",
   "repository": {
     "type": "git",
@@ -12,7 +12,9 @@
     "Bitcoin"
   ],
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "jest",
@@ -21,7 +23,7 @@
   "author": "Severin Bühler",
   "license": "ISC",
   "dependencies": {
-    "noble-secp256k1": "^1.2.7",
+    "@noble/secp256k1": "1.5.1",
     "sjcl": "^1.0.8"
   },
   "devDependencies": {
