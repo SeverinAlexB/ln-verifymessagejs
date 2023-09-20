@@ -20,7 +20,7 @@ function bytesToBigInt(bytes: Uint8Array): bigint {
   return BigInt("0x" + hex.join(""));
 }
 
-function hexToBytes(hex: string): Uint8Array {
+export function hexToBytes(hex: string): Uint8Array {
     const array = new Uint8Array(
         hex.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
       );
@@ -40,7 +40,7 @@ function getSignature(signatureBytes: Uint8Array): secp.Signature {
   return signature;
 }
 
-function getMessageHash(message: string) {
+export function getMessageHash(message: string) {
   const messageWithPrefix = "Lightning Signed Message:" + message;
   const dsha256 = sjcl.hash.sha256.hash(
     sjcl.hash.sha256.hash(messageWithPrefix)
