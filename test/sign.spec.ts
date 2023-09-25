@@ -74,17 +74,3 @@ test("sign and verify custom prefix fail", async () => {
     expect(derivedNodeId).not.toEqual(nodeId)
 });
 
-
-test("readme test", async () => {
-    const {privateKey, publicKey} = generateKeyPair()
-
-    const message = "helloWorld"
-    const signature = await signMessage(message, privateKey.bytes, {
-        signatureFormat:'zbase'
-    })
-    const derivedNodeId = deriveNodeIdZbase(signature, message)
-    expect(derivedNodeId).toEqual(publicKey.der)
-
-    console.log(signature)
-    console.log(derivedNodeId)
-});

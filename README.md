@@ -4,11 +4,11 @@ A simple library to recover Lightning Network node ids from signed messages. No 
 
 ### Tested implementations:
 - lnd
-- c-lightning
+- core-lightning
 - eclair
 - LDK (react-native)
 
-Basically, all implementations that follow the [lnd standard](https://web.archive.org/web/20191010011846/https://twitter.com/rusty_twit/status/1182102005914800128) and output zbase or hex are supported.
+Basically, all implementations that follow the [specinatweet](https://web.archive.org/web/20191010011846/https://twitter.com/rusty_twit/status/1182102005914800128) and output zbase or hex are supported.
 
 ## Install
 
@@ -23,11 +23,11 @@ npm i ln-verifymessagejs
 Check if a signature and message has been signed by a specific node.
 
 ```ts
-import { verifyMessage } from 'ln-verifymessagejs';
+import { verifyMessage } from "ln-verifymessagejs";
 
 const messageThatHasBeenSigned = "helloWorld"
 const zbaseSignature = "ry13r8phfdyt3yukuft4m8s5tq4kgbfmpnn9a54akrar7waxjooi1h1nsp8uzsf5t6fcctupzhhte1y388d19jwobz5bwh5rybs5wrb7"
-const expectedNodeId = '02fbbee488a01cc8a9b429b6c4567e0ce7a43a2778d60729d5c4c67dcb9a34a898'
+const expectedNodeId = "02fbbee488a01cc8a9b429b6c4567e0ce7a43a2778d60729d5c4c67dcb9a34a898"
 
 const isValid = verifyMessage(zbaseSignature, messageThatHasBeenSigned, expectedNodeId);
 ```
@@ -44,9 +44,9 @@ const isValid = verifyMessage(zbaseSignature, messageThatHasBeenSigned, expected
 Sign a message with a private key.
 
 ```ts
-import { signMessage, utils } from 'ln-verifymessagejs';
+import { signMessage, utils } from "ln-verifymessagejs";
 
-const {privateKey, publicKey} = utils.generateKeyPair(); // generate a keypair or use your own private key.
+const {privateKey, publicKey} = utils.generateKeyPair(); // Generate a keypair or use your own private key.
 
 const messageToSign = "helloWorld"
 const signature = await signMessage(messageToSign, privateKey.hex);
@@ -55,7 +55,7 @@ const signature = await signMessage(messageToSign, privateKey.hex);
 - `message: string` Plain text message to sign.
 - `privateKey: Uint8Array | string` Private key either as bytes array or hex string.
 - `options` Optional arguments.
-    - `options.signatureFormat: 'hex' | 'zbase'` Output encoding. Default is `zbase`.
+    - `options.signatureFormat: "hex" | "zbase"` Output encoding. Default is `zbase`.
     - `options.prefix: string` Message prefix. Default is `Lightning Signed Message:`.
 
 

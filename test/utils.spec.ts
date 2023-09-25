@@ -6,7 +6,7 @@ import { hexToBytes } from "../src/utils";
 test("Match key string with bytes", async () => {
     const {publicKey, privateKey} = utils.generateKeyPair()
 
-    const rawPub = secp.Point.fromHex(publicKey.der).toRawBytes(true)
+    const rawPub = secp.Point.fromHex(publicKey.hex).toRawBytes(true)
     expect(rawPub).toEqual(publicKey.bytes)
 
     const rawPriv = hexToBytes(privateKey.hex)

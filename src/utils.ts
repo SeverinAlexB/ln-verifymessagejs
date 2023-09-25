@@ -30,7 +30,30 @@ export function getMessageHash(message: string, prefix: string = defaultLightnin
     return sjcl.codec.hex.fromBits(dsha256);
 }
 
-export function generateKeyPair() {
+export interface IKeyPair {
+    publicKey: {
+        /**
+         * Raw byte representation
+         */
+        bytes: Uint8Array,
+        /**
+         * Compressed pubkey. DER hex representation.
+         */
+        hex: string
+    },
+    privateKey: {
+        /**
+         * Raw byte representation
+         */
+        bytes: Uint8Array,
+        /**
+         * Hex
+         */
+        hex: string
+    }
+}
+
+export function generateKeyPair(): IKeyPair {
     const privKey = secp.utils.randomPrivateKey()
     const pubKey = secp.getPublicKey(privKey, true)
     return {
@@ -39,7 +62,7 @@ export function generateKeyPair() {
             bytes: privKey
         },
         publicKey: {
-            der: secp.utils.bytesToHex(pubKey),
+            hex: secp.utils.bytesToHex(pubKey),
             bytes: pubKey
         }
     }
