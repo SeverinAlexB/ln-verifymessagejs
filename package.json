@@ -9,7 +9,17 @@
   "homepage": "https://github.com/Sebubu/ln-verifymessagejs#readme",
   "keywords": [
     "Lightning Network",
-    "Bitcoin"
+    "lightning",
+    "Bitcoin",
+    "signmessage",
+    "verify",
+    "sign",
+    "lnd",
+    "cln",
+    "ldk",
+    "signature",
+    "verification",
+    "secp256k1"
   ],
   "main": "dist/index.js",
   "files": [
@@ -18,10 +28,11 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "ci": "npm run build & npm run test & wait"
+    "ci": "npm run build & npm run test & wait",
+    "prepublishOnly": "tsc"
   },
   "author": "Severin Bühler",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@noble/secp256k1": "^1.7.1",
     "sjcl": "^1.0.8"
