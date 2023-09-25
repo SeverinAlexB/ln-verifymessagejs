@@ -32,6 +32,12 @@ const expectedNodeId = '02fbbee488a01cc8a9b429b6c4567e0ce7a43a2778d60729d5c4c67d
 const isValid = verifyMessage(zbaseSignature, messageThatHasBeenSigned, expectedNodeId);
 ```
 
+- `signature: string` Signature to verify.
+- `message: string` Plain text message that has been signed.
+- `nodePubkey: string` Node id of the node that signed the message.
+- `options` Optional arguments.
+    - `options.prefix: string` Message prefix. Default is `Lightning Signed Message:`.
+
 
 ### Sign message
 
@@ -45,6 +51,12 @@ const {privateKey, publicKey} = utils.generateKeyPair(); // generate a keypair o
 const messageToSign = "helloWorld"
 const signature = await signMessage(messageToSign, privateKey.hex);
 ```
+
+- `message: string` Plain text message to sign.
+- `privateKey: Uint8Array | string` Private key either as bytes array or hex string.
+- `options` Optional arguments.
+    - `options.signatureFormat: 'hex' | 'zbase'` Output encoding. Default is `zbase`.
+    - `options.prefix: string` Message prefix. Default is `Lightning Signed Message:`.
 
 
 ## Sign with a Lightning Network node
