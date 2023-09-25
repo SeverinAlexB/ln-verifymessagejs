@@ -77,7 +77,6 @@ export function deriveNodeIdHex(hex: string, message: string, prefix: string = d
  * @param signature Either zbase or hex.
  * @param message Message that has been signed.
  * @returns Node public key
- * @deprecated Use the new {@link verifyMessage} method instead.
  */
 export function deriveNodeId(signature: string, message: string, prefix: string = defaultLightningSignPrefix) {
   const isHex = signature.length === 130;

@@ -54,6 +54,10 @@ const derivedNodeId = deriveNodeId(zbaseSignature, messageThatHasBeenSigned);
 console.log("Message has been signed by", derivedNodeId);
 ```
 
+- `signature: string` Signature to verify.
+- `message: string` Plain text message that has been signed.
+- `prefix?: string` Message prefix. Default is `Lightning Signed Message:`.
+
 Be aware: `deriveNodeId` does it check if the node exists.
 
 
