@@ -10,7 +10,9 @@ test("sign and verify zbase", async () => {
     const nodeId = Buffer.from(pubKey).toString('hex')
 
     const message = "hodl"
-    const signature = await signMessage(message, privKey, 'zbase')
+    const signature = await signMessage(message, privKey, {
+        signatureFormat:'zbase'
+    })
     const derivedNodeId = deriveNodeIdZbase(signature, message)
     expect(derivedNodeId).toEqual(nodeId)
 });
@@ -21,7 +23,9 @@ test("sign and verify hex", async () => {
     const nodeId = Buffer.from(pubKey).toString('hex')
 
     const message = "hodl"
-    const signature = await signMessage(message, privKey, 'hex')
+    const signature = await signMessage(message, privKey, {
+        signatureFormat: 'hex'
+    })
     const derivedNodeId = deriveNodeIdHex(signature, message)
     expect(derivedNodeId).toEqual(nodeId)
 });
@@ -31,8 +35,41 @@ test("sign and verify string and bytes privKey", async () => {
     const {privateKey} = generateKeyPair()
 
     const message = "hodl"
-    const signatureBytes = await signMessage(message, privateKey.bytes, 'zbase')
-    const signatureString = await signMessage(message, privateKey.hex, 'zbase')
+    const signatureBytes = await signMessage(message, privateKey.bytes, {
+        signatureFormat: 'zbase'
+    })
+    const signatureString = await signMessage(message, privateKey.hex, {
+        signatureFormat: 'zbase'
+    })
 
     expect(signatureBytes).toEqual(signatureString)
+});
+
+
+test("sign and verify custom prefix success", async () => {
+    const privKey = secp.utils.randomPrivateKey()
+    const pubKey = secp.getPublicKey(privKey, true)
+    const nodeId = Buffer.from(pubKey).toString('hex')
+
+    const message = "hodl"
+    const signature = await signMessage(message, privKey, {
+        signatureFormat:'zbase',
+        prefix: 'custom'
+    })
+    const derivedNodeId = deriveNodeIdZbase(signature, message, 'custom')
+    expect(derivedNodeId).toEqual(nodeId)
+});
+
+test("sign and verify custom prefix fail", async () => {
+    const privKey = secp.utils.randomPrivateKey()
+    const pubKey = secp.getPublicKey(privKey, true)
+    const nodeId = Buffer.from(pubKey).toString('hex')
+
+    const message = "hodl"
+    const signature = await signMessage(message, privKey, {
+        signatureFormat:'zbase',
+        prefix: 'custom1'
+    })
+    const derivedNodeId = deriveNodeIdZbase(signature, message, 'custom2')
+    expect(derivedNodeId).not.toEqual(nodeId)
 });

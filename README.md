@@ -1,11 +1,12 @@
 # ln-verifymessagejs
 
-A simple library to derive Lightning Network node ids from signed messages. No need for running Lightning Network node. Everything is done in js.
+A simple library to sign and derive Lightning Network node ids from signed messages. No need for running Lightning Network node. Everything is done in js.
 
 ### Tested implementations:
 - lnd
 - c-lightning
 - eclair
+- LDK (react-native)
 
 Basically, all implementations that follow the [lnd standard](https://twitter.com/rusty_twit/status/1182102005914800128) and output zbase or hex are supported.
 

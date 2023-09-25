@@ -1,12 +1,19 @@
 import * as secp from "@noble/secp256k1";
 import { zbase32 } from "./zbase";
-import { bytesToBigInt, getMessageHash, hexToBytes } from "./utils";
+import { bytesToBigInt, defaultLightningSignPrefix, getMessageHash, hexToBytes } from "./utils";
 
-/**
- * Algorithm according to https://twitter.com/rusty_twit/status/1182102005914800128
- * zbase32(SigRec(SHA256(SHA256("Lightning Signed Message:" + msg))))
- */
 
+
+export interface IVerifyOptions {
+    /**
+     * Prefix of the signed message.
+     */
+    prefix: string
+}
+
+export const defaultVerifyOptions: IVerifyOptions = {
+    prefix: 'Lightning Signed Message:'
+}
 
 
 
@@ -23,13 +30,13 @@ function getSignature(signatureBytes: Uint8Array): secp.Signature {
   return signature;
 }
 
-export function deriveNodeIdBytes(bytes: Uint8Array, message: string) {
+export function deriveNodeIdBytes(bytes: Uint8Array, message: string, prefix: string = defaultLightningSignPrefix) {
   try {
     const [signatureBytes, recoveryId] = splitBytesToSignatureAndRecovery(bytes);
     const signature = getSignature(signatureBytes);
     signature.assertValidity();
 
-    const messageHash = getMessageHash(message);
+    const messageHash = getMessageHash(message, prefix);
 
     const point = secp.Point.fromSignature(messageHash, signature, recoveryId);
     point.assertValidity();
@@ -44,10 +51,10 @@ export function deriveNodeIdBytes(bytes: Uint8Array, message: string) {
 /**
  * @deprecated Use the new {@link verifyMessage} method instead.
  */
-export function deriveNodeIdZbase(zbase: string, message: string) {
+export function deriveNodeIdZbase(zbase: string, message: string, prefix: string = defaultLightningSignPrefix) {
   try {
     const bytes = zbase32.decode(zbase);
-    return deriveNodeIdBytes(bytes, message);
+    return deriveNodeIdBytes(bytes, message, prefix);
   } catch (e) {
     return undefined;
   }
@@ -56,10 +63,10 @@ export function deriveNodeIdZbase(zbase: string, message: string) {
 /**
  * @deprecated Use the new {@link verifyMessage} method instead.
  */
-export function deriveNodeIdHex(hex: string, message: string) {
+export function deriveNodeIdHex(hex: string, message: string, prefix: string = defaultLightningSignPrefix) {
   try {
     const bytes = hexToBytes(hex);
-    return deriveNodeIdBytes(bytes, message);
+    return deriveNodeIdBytes(bytes, message, prefix);
   } catch (e) {
     return undefined;
   }
@@ -72,14 +79,14 @@ export function deriveNodeIdHex(hex: string, message: string) {
  * @returns Node public key
  * @deprecated Use the new {@link verifyMessage} method instead.
  */
-export function deriveNodeId(signature: string, message: string) {
+export function deriveNodeId(signature: string, message: string, prefix: string = defaultLightningSignPrefix) {
   const isHex = signature.length === 130;
   const isZbase = signature.length === 104;
 
   if (isZbase) {
-    return deriveNodeIdZbase(signature, message);
+    return deriveNodeIdZbase(signature, message, prefix);
   } else if (isHex) {
-    return deriveNodeIdHex(signature, message);
+    return deriveNodeIdHex(signature, message, prefix);
   } else {
     return undefined;
   }
@@ -93,8 +100,8 @@ export function deriveNodeId(signature: string, message: string) {
  * @param nodePubkey Public key of the signing node.
  * @returns 
  */
-export function verifyMessage(signature: string, message: string, nodePubkey: string): boolean {
-    const derivedNodePubkey = deriveNodeId(signature, message)
+export function verifyMessage(signature: string, message: string, nodePubkey: string, options: Partial<IVerifyOptions> = {}): boolean {
+    const derivedNodePubkey = deriveNodeId(signature, message, options.prefix)
     return derivedNodePubkey === nodePubkey.toLowerCase()
 }
 

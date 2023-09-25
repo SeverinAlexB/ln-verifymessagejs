@@ -1,6 +1,8 @@
 import * as sjcl from "sjcl";
 import * as secp from "@noble/secp256k1";
 
+export const defaultLightningSignPrefix = 'Lightning Signed Message:'
+
 export function bytesToBigInt(bytes: Uint8Array): bigint {
     var hex = [];
     bytes.forEach(function (i) {
@@ -20,8 +22,8 @@ export function hexToBytes(hex: string): Uint8Array {
     return array;
 }
 
-export function getMessageHash(message: string) {
-    const messageWithPrefix = "Lightning Signed Message:" + message;
+export function getMessageHash(message: string, prefix: string = defaultLightningSignPrefix) {
+    const messageWithPrefix = prefix + message;
     const dsha256 = sjcl.hash.sha256.hash(
         sjcl.hash.sha256.hash(messageWithPrefix)
     );
