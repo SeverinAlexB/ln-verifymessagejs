@@ -1,6 +1,6 @@
 # ln-verifymessagejs
 
-A simple library to sign and derive Lightning Network node ids from signed messages. No need for running Lightning Network node. Everything is done in js.
+A simple library to recover Lightning Network node ids from signed messages. No need to run a Lightning Network node. Everything is done in js. Also supports signing.
 
 ### Tested implementations:
 - lnd
@@ -8,7 +8,7 @@ A simple library to sign and derive Lightning Network node ids from signed messa
 - eclair
 - LDK (react-native)
 
-Basically, all implementations that follow the [lnd standard](https://twitter.com/rusty_twit/status/1182102005914800128) and output zbase or hex are supported.
+Basically, all implementations that follow the [lnd standard](https://web.archive.org/web/20191010011846/https://twitter.com/rusty_twit/status/1182102005914800128) and output zbase or hex are supported.
 
 ## Install
 
@@ -18,40 +18,41 @@ npm i ln-verifymessagejs
 
 ## Usage
 
-#### Derive node id from signature and message
+### Verify message
 
-
-```ts
-import { deriveNodeId } from "ln-verifymessagejs";
-
-const messageThatHasBeenSigned = "ln-verifymessagejs";
-const zbaseSignature = "rynmoqhhadjsttaracxgo9nhkoioi6peib8k18dekrih4hxpp36zcbgc6ntyrggc11uhjcb9prcx5py6qo16bk89i458r4n51ghggnxc";
-
-const derivedNodeId = deriveNodeId(zbaseSignature, messageThatHasBeenSigned);
-console.log("Message has been signed by", derivedNodeId);
-```
-
-Be aware: `deriveNodeId` does not check if the message has been signed by the specific signature nor does it check
-if the node exists.
-
-
-#### Check if the signature and message has been signed by a specific node
+Check if a signature and message has been signed by a specific node.
 
 ```ts
-const expectedNodeId = "02ac77f9f7397a64861b573c9e8b8652ce2e67a05150fd166831e9fc167670dfd8";
-if (derivedNodeId !== expectedNodeId) {
-    throw new Error("Signature does not match expected nodeId");
-}
+import { verifyMessage } from 'ln-verifymessagejs';
 
+const messageThatHasBeenSigned = "helloWorld"
+const zbaseSignature = "ry13r8phfdyt3yukuft4m8s5tq4kgbfmpnn9a54akrar7waxjooi1h1nsp8uzsf5t6fcctupzhhte1y388d19jwobz5bwh5rybs5wrb7"
+const expectedNodeId = '02fbbee488a01cc8a9b429b6c4567e0ce7a43a2778d60729d5c4c67dcb9a34a898'
+
+const isValid = verifyMessage(zbaseSignature, messageThatHasBeenSigned, expectedNodeId);
 ```
 
 
-## Sign message
+### Sign message
 
-Node operators can sign message with [Thunderhub or Ride the Lightning](https://lightningnetwork.plus/questions/46).
+Sign a message with a private key.
+
+```ts
+import { signMessage, utils } from 'ln-verifymessagejs';
+
+const {privateKey, publicKey} = utils.generateKeyPair(); // generate a keypair or use your own private key.
+
+const messageToSign = "helloWorld"
+const signature = await signMessage(messageToSign, privateKey.hex);
+```
+
+
+## Sign with a Lightning Network node
+
+Node operators can sign messages with [Thunderhub or Ride the Lightning](https://lightningnetwork.plus/questions/46).
 If a user has access to a terminal messages can be signed directly with the cli.
 
-**lnd** [signmessage](https://api.lightning.community/#signmessage)
+**lnd** [signmessage](https://lightning.engineering/api-docs/api/lnd/lightning/sign-message/index.html)
 ```bash
 
 lncli signmessage --msg MyMessageToSign
@@ -61,7 +62,7 @@ lncli signmessage --msg MyMessageToSign
 ```
 
 
-**c-ightning** [signmessage](https://lightning.readthedocs.io/lightning-signmessage.7.html)
+**core-ightning** [signmessage](https://docs.corelightning.org/reference/lightning-signmessage)
 ```bash
 lightning-cli signmessage MyMessageToSign
 # {
