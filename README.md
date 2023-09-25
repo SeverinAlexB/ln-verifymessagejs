@@ -125,3 +125,16 @@ eclair-cli signmessage --msg=$(echo -n 'MyMessageToSign' | base64)
 # Use the signature field. It's hex
 ```
 
+**react-native-ldk** [signmessage](https://github.com/synonymdev/react-native-ldk/pull/169)
+```javascript
+const res = await ldk.nodeSign({
+  message: 'MyMessageToSign',
+  messagePrefix: 'Lightning Signed Message:' //Optional with default
+});
+if (res.isErr()) {
+  console.error(res.error);
+  return;
+}
+
+console.log(res.value);
+```
