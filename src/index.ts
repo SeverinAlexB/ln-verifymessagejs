@@ -1,2 +1,3 @@
-export {deriveNodeId, deriveNodeIdZbase, deriveNodeIdHex, deriveNodeIdBytes} from './verify';
+export {deriveNodeId, deriveNodeIdZbase, deriveNodeIdHex, verifyMessage} from './verify';
 export {signMessage} from './sign'
+export * as utils from './utils'

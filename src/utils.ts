@@ -1,5 +1,5 @@
 import * as sjcl from "sjcl";
-
+import * as secp from "@noble/secp256k1";
 
 export function bytesToBigInt(bytes: Uint8Array): bigint {
     var hex = [];
@@ -26,4 +26,19 @@ export function getMessageHash(message: string) {
         sjcl.hash.sha256.hash(messageWithPrefix)
     );
     return sjcl.codec.hex.fromBits(dsha256);
+}
+
+export function generateKeyPair() {
+    const privKey = secp.utils.randomPrivateKey()
+    const pubKey = secp.getPublicKey(privKey, true)
+    return {
+        privateKey: {
+            hex: Buffer.from(privKey).toString('hex'),
+            bytes: privKey
+        },
+        publicKey: {
+            der: secp.utils.bytesToHex(pubKey),
+            bytes: pubKey
+        }
+    }
 }

@@ -1,6 +1,6 @@
 {
   "name": "ln-verifymessagejs",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Checks message signatures like lightning-cli checkmessge or lncli signmessage.",
   "repository": {
     "type": "git",

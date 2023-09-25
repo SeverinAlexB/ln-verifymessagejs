@@ -1,6 +1,6 @@
 import * as secp from "@noble/secp256k1";
 import { zbase32 } from "./zbase";
-import { bytesToBigInt, getMessageHash, hexToBytes } from "./helpers";
+import { bytesToBigInt, getMessageHash, hexToBytes } from "./utils";
 
 /**
  * Algorithm according to https://twitter.com/rusty_twit/status/1182102005914800128
@@ -41,6 +41,9 @@ export function deriveNodeIdBytes(bytes: Uint8Array, message: string) {
   }
 }
 
+/**
+ * @deprecated Use the new {@link verifyMessage} method instead.
+ */
 export function deriveNodeIdZbase(zbase: string, message: string) {
   try {
     const bytes = zbase32.decode(zbase);
@@ -50,6 +53,9 @@ export function deriveNodeIdZbase(zbase: string, message: string) {
   }
 }
 
+/**
+ * @deprecated Use the new {@link verifyMessage} method instead.
+ */
 export function deriveNodeIdHex(hex: string, message: string) {
   try {
     const bytes = hexToBytes(hex);
@@ -59,18 +65,37 @@ export function deriveNodeIdHex(hex: string, message: string) {
   }
 }
 
-export function deriveNodeId(hexOrZbase: string, message: string) {
-  const isHex = hexOrZbase.length === 130;
-  const isZbase = hexOrZbase.length === 104;
+/**
+ * Recovers the node pubkey from the signature and message.
+ * @param signature Either zbase or hex.
+ * @param message Message that has been signed.
+ * @returns Node public key
+ * @deprecated Use the new {@link verifyMessage} method instead.
+ */
+export function deriveNodeId(signature: string, message: string) {
+  const isHex = signature.length === 130;
+  const isZbase = signature.length === 104;
 
   if (isZbase) {
-    return deriveNodeIdZbase(hexOrZbase, message);
+    return deriveNodeIdZbase(signature, message);
   } else if (isHex) {
-    return deriveNodeIdHex(hexOrZbase, message);
+    return deriveNodeIdHex(signature, message);
   } else {
     return undefined;
   }
 
+}
+
+/**
+ * Verifies the signature of this message.
+ * @param signature Signature either in zbase or hex format.
+ * @param message Message that has been signed.
+ * @param nodePubkey Public key of the signing node.
+ * @returns 
+ */
+export function verifyMessage(signature: string, message: string, nodePubkey: string): boolean {
+    const derivedNodePubkey = deriveNodeId(signature, message)
+    return derivedNodePubkey === nodePubkey.toLowerCase()
 }
 
 
