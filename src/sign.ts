@@ -1,5 +1,5 @@
 import * as secp from "@noble/secp256k1";
-import { zbase32 } from "../src/zbase";
+import { zbase32 } from "./zbase";
 import { defaultLightningSignPrefix, getMessageHash, hexToBytes } from "./utils";
 
 export interface ISignOptions {
