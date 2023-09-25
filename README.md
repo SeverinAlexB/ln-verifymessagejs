@@ -20,7 +20,7 @@ npm i ln-verifymessagejs
 
 ## Usage
 
-### Verify message
+### Verify Message
 
 Check if a signature and message has been signed by a specific node.
 
@@ -40,8 +40,24 @@ const isValid = verifyMessage(zbaseSignature, messageThatHasBeenSigned, expected
 - `options` Optional arguments.
     - `options.prefix: string` Message prefix. Default is `Lightning Signed Message:`.
 
+### Derive Node Id
 
-### Sign message
+Recover a node id from a signature and message.
+
+```ts
+import { deriveNodeId } from "ln-verifymessagejs";
+
+const messageThatHasBeenSigned = "ln-verifymessagejs";
+const zbaseSignature = "rynmoqhhadjsttaracxgo9nhkoioi6peib8k18dekrih4hxpp36zcbgc6ntyrggc11uhjcb9prcx5py6qo16bk89i458r4n51ghggnxc";
+
+const derivedNodeId = deriveNodeId(zbaseSignature, messageThatHasBeenSigned);
+console.log("Message has been signed by", derivedNodeId);
+```
+
+Be aware: `deriveNodeId` does it check if the node exists.
+
+
+### Sign Message
 
 Sign a message with a private key.
 
@@ -59,6 +75,9 @@ const signature = await signMessage(messageToSign, privateKey.hex);
 - `options` Optional arguments.
     - `options.signatureFormat: "hex" | "zbase"` Output encoding. Default is `zbase`.
     - `options.prefix: string` Message prefix. Default is `Lightning Signed Message:`.
+
+
+
 
 
 ## Sign with a Lightning Network node
