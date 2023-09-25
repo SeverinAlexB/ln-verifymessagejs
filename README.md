@@ -1,6 +1,6 @@
 # ln-verifymessagejs
 
-[![NPM version](https://img.shields.io/npm/v/ln-verifymessagejscolor=%23FFAE00&style=flat-square)](https://www.npmjs.com/package/ln-verifymessagejs)
+[![NPM version](https://img.shields.io/npm/v/ln-verifymessagejs?color=%23FFAE00&style=flat-square)](https://www.npmjs.com/package/ln-verifymessagejs)
 
 A simple library to recover Lightning Network node ids from signed messages. No need to run a Lightning Network node. Everything is done in js. Also supports signing.
 
