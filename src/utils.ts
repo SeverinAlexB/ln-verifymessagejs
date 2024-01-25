@@ -1,5 +1,7 @@
 import * as sjcl from "sjcl";
 import * as secp from "@noble/secp256k1";
+import * as shajs from "sha.js";
+
 
 export const defaultLightningSignPrefix = 'Lightning Signed Message:'
 
@@ -20,6 +22,10 @@ export function hexToBytes(hex: string): Uint8Array {
         hex.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
     );
     return array;
+}
+
+export function bytesToHex(bytes: Uint8Array): string {
+    return secp.utils.bytesToHex(bytes)
 }
 
 export function getMessageHash(message: string, prefix: string = defaultLightningSignPrefix) {
@@ -66,4 +72,15 @@ export function generateKeyPair(): IKeyPair {
             bytes: pubKey
         }
     }
+}
+
+/**
+ * Creates a double sha256
+ * @param value 
+ * @returns 
+ */
+export function dsha526(value: Uint8Array | Buffer) {
+    const hash1: Buffer = shajs('sha256').update(value).digest();
+    const hash2: Buffer = shajs('sha256').update(hash1).digest();
+    return new Uint8Array(hash2);
 }
