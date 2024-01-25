@@ -24,6 +24,12 @@ test("secp example", async () => {
 });
 
 test("getSharedSecret default case", async () => {
+    const shouldSecret = new Uint8Array([
+        216, 249,   8,  21, 131, 130, 217,  98,
+        141, 252, 212, 103,  97, 178, 150,  89,
+        165, 180,  76, 128, 183, 139, 229, 149,
+         10,  78, 235,   2,  83, 209, 217,   0
+      ])
     const alicePub = secp.getPublicKey(alicePriv, true)
     const aliceNodeId = Buffer.from(alicePub).toString('hex')
     const bobPub = secp.getPublicKey(bobPriv, true)
@@ -32,9 +38,23 @@ test("getSharedSecret default case", async () => {
 
     const sharedSecretAlice = generateSharedSecret(alicePriv, bobNodeId);
     const sharedSecretBob = generateSharedSecret(bobPriv, aliceNodeId);
-    const secpRawShared = secp.getSharedSecret(alicePriv, bobPub, true);
     
     expect(sharedSecretAlice).toEqual(sharedSecretBob)
-    expect(sharedSecretAlice).toEqual(secpRawShared)
+    expect(sharedSecretAlice).toEqual(shouldSecret)
+});
+
+test("getSharedSecret derivation", async () => {
+    const alicePub = secp.getPublicKey(alicePriv, true)
+    const aliceNodeId = Buffer.from(alicePub).toString('hex')
+    const bobPub = secp.getPublicKey(bobPriv, true)
+    const bobNodeId = Buffer.from(bobPub).toString('hex')
+    const derivationName = "ufo"
+
+    const underivedSecret = generateSharedSecret(alicePriv, bobNodeId)
+    const sharedSecretAlice = generateSharedSecret(alicePriv, bobNodeId, derivationName);
+    const sharedSecretBob = generateSharedSecret(bobPriv, aliceNodeId, derivationName);
+    
+    expect(sharedSecretAlice).toEqual(sharedSecretBob)
+    expect(sharedSecretAlice).not.toEqual(underivedSecret)
 });
 

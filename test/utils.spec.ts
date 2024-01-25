@@ -1,7 +1,6 @@
 import * as secp from "@noble/secp256k1";
 import {utils} from '../src'
 import { bytesToHex, dsha526, hexToBytes } from "../src/utils";
-import * as sjcl from "sjcl";
 
 
 test("Match key string with bytes", async () => {

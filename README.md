@@ -80,8 +80,22 @@ const signature = await signMessage(messageToSign, privateKey.hex);
     - `options.signatureFormat: "hex" | "zbase"` Output encoding. Default is `zbase`.
     - `options.prefix: string` Message prefix. Default is `Lightning Signed Message:`.
 
+### Derive shared secret
 
+Derive a shared secret between a private key and a public key.
 
+```ts
+import { generateSharedSecret } from "ln-verifymessagejs";
+
+const myKeys = utils.generateKeyPair(); // Generate a keypair or use your own key.
+const partnerNodeId = '0200000000a3eff613189ca6c4070c89206ad658e286751eca1f29262948247a5f';
+
+const secret = generateSharedSecret(myKeys.privateKey.hex, partnerNodeId)
+```
+
+- `privateKey: Uint8Array | string` Private key either as bytes array or hex string.
+- `nodePubkey: string` Node id of the partner node.
+- `derivationName?: string` Optional derivation name to create a unique secret. Double sha256(baseSecret + derivationName).
 
 
 ## Sign with a Lightning Network node

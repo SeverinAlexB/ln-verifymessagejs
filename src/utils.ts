@@ -1,4 +1,3 @@
-import * as sjcl from "sjcl";
 import * as secp from "@noble/secp256k1";
 import * as shajs from "sha.js";
 
@@ -28,12 +27,19 @@ export function bytesToHex(bytes: Uint8Array): string {
     return secp.utils.bytesToHex(bytes)
 }
 
+export function stringToBytes(val: string): Uint8Array { 
+    const result = []; 
+    for (let i = 0; i < val.length; i++) { 
+        result.push(val.charCodeAt(i)); 
+    } 
+    return new Uint8Array(result); 
+} 
+
 export function getMessageHash(message: string, prefix: string = defaultLightningSignPrefix) {
     const messageWithPrefix = prefix + message;
-    const dsha256 = sjcl.hash.sha256.hash(
-        sjcl.hash.sha256.hash(messageWithPrefix)
-    );
-    return sjcl.codec.hex.fromBits(dsha256);
+    const messageBytes = stringToBytes(messageWithPrefix);
+    const hash = dsha526(messageBytes);
+    return bytesToHex(hash)
 }
 
 export interface IKeyPair {
