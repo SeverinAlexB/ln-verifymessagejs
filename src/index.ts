@@ -1,6 +1,7 @@
 export {deriveNodeId, deriveNodeIdZbase, deriveNodeIdHex, verifyMessage} from './verify';
 export {signMessage} from './sign'
 export * as utils from './utils'
+export {generateSharedSecret} from './shared_secret';
 
 /**
  * Algorithm according to https://twitter.com/rusty_twit/status/1182102005914800128

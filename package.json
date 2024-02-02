@@ -1,6 +1,6 @@
 {
   "name": "ln-verifymessagejs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Signs/checks message signatures like core-lightning checkmessge or lnd signmessage.",
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
   "license": "MIT",
   "dependencies": {
     "@noble/secp256k1": "^1.7.1",
-    "sjcl": "^1.0.8"
+    "sha.js": "^2.4.11"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",

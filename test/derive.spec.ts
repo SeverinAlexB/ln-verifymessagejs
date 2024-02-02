@@ -1,6 +1,6 @@
 import { deriveNodeIdZbase, deriveNodeIdHex, deriveNodeId } from "../src";
 
-test("deriveNodeIdZbase", () => {
+test("deriveNodeIdZbase default", () => {
     const nodeId = '02ac77f9f7397a64861b573c9e8b8652ce2e67a05150fd166831e9fc167670dfd8';
     const zBase = 'rbwzq7bjg1iw4xthgt463a1d88w5k4zmum9z3xtfbnhc7r3qoizrn8edgwtp8m5m6xfms7pcyccjuggr934tkkjwzewsid44zqub4iux';
     const message = 'test';
@@ -8,7 +8,7 @@ test("deriveNodeIdZbase", () => {
     expect(extractedNodeId).toEqual(nodeId);
 });
 
-test("deriveNodeIdHex", () => {
+test("deriveNodeIdHex default", () => {
     const nodeId = '02ac77f9f7397a64861b573c9e8b8652ce2e67a05150fd166831e9fc167670dfd8';
     const hex = '206977742934ab4d3e3c3475ece24339e9b56aeb9aff7cbe2508b8ce932e856e411d033522d3af6bf3cabb75ac03189998c4fe75152934ba296a8f5abba61d566f';
     const message = 'test';
