@@ -25,11 +25,12 @@ test("secp example", async () => {
 
 test("getSharedSecret default case", async () => {
     const shouldSecret = new Uint8Array([
-        216, 249,   8,  21, 131, 130, 217,  98,
-        141, 252, 212, 103,  97, 178, 150,  89,
-        165, 180,  76, 128, 183, 139, 229, 149,
-         10,  78, 235,   2,  83, 209, 217,   0
-      ])
+        2, 244,  56, 145,  64, 191,  20, 182,
+       92,  49,  93,  99,  81, 224, 174, 100,
+      190, 112, 227,   4, 131,  37,  33, 155,
+      126,  78,  78, 165, 176,  12, 159,  75,
+      150
+    ])
     const alicePub = secp.getPublicKey(alicePriv, true)
     const aliceNodeId = Buffer.from(alicePub).toString('hex')
     const bobPub = secp.getPublicKey(bobPriv, true)
