@@ -65,8 +65,19 @@ export interface IKeyPair {
     }
 }
 
-export function generateKeyPair(): IKeyPair {
-    const privKey = secp.utils.randomPrivateKey()
+/**
+ * Derive keypair from a private key.
+ * @param privateKey Hex or Uint8Array
+ * @returns IKeyPair
+ */
+export function deriveKeyPair(privateKey: string | Uint8Array): IKeyPair {
+    let privKey: Uint8Array;
+    if (typeof privateKey === 'string' || privateKey instanceof String) {
+        privKey = hexToBytes(privateKey as string)
+    } else {
+        privKey = privateKey;
+    }
+
     const pubKey = secp.getPublicKey(privKey, true)
     return {
         privateKey: {
@@ -78,6 +89,15 @@ export function generateKeyPair(): IKeyPair {
             bytes: pubKey
         }
     }
+}
+
+/**
+ * Generate a new keypair
+ * @returns 
+ */
+export function generateKeyPair(): IKeyPair {
+    const privKey = secp.utils.randomPrivateKey()
+    return deriveKeyPair(privKey)
 }
 
 /**
