@@ -83,7 +83,7 @@ const signature = await signMessage(messageToSign, privateKey.hex);
 ### Derive shared secret
 
 Derive a shared secret between a private key and a public key.
-Two parties deriving a secret with their respective private key and the partners public key generates the same shared secret.
+Two parties deriving a secret with their respective private key and the partners public key generate the same shared secret.
 
 ```ts
 import { generateSharedSecret } from "ln-verifymessagejs";
