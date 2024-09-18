@@ -38,7 +38,7 @@ export function stringToBytes(val: string): Uint8Array {
 export function getMessageHash(message: string, prefix: string = defaultLightningSignPrefix) {
     const messageWithPrefix = prefix + message;
     const messageBytes = stringToBytes(messageWithPrefix);
-    const hash = dsha526(messageBytes);
+    const hash = dsha256(messageBytes);
     return bytesToHex(hash)
 }
 
@@ -105,7 +105,7 @@ export function generateKeyPair(): IKeyPair {
  * @param value 
  * @returns 
  */
-export function dsha526(value: Uint8Array | Buffer) {
+export function dsha256(value: Uint8Array | Buffer) {
     const hash1: Buffer = shajs('sha256').update(value).digest();
     const hash2: Buffer = shajs('sha256').update(hash1).digest();
     return new Uint8Array(hash2);

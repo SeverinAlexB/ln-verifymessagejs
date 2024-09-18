@@ -1,4 +1,4 @@
-import { dsha526, hexToBytes, stringToBytes } from "./utils";
+import { dsha256, hexToBytes, stringToBytes } from "./utils";
 import * as secp from "@noble/secp256k1";
 
 /**
@@ -24,5 +24,5 @@ export function generateSharedSecret(privateKey: Uint8Array | string, nodePubkey
     mergedArray.set(baseSecret);
     mergedArray.set(bytes, baseSecret.length);
 
-    return dsha526(baseSecret)
+    return dsha256(mergedArray)
 }
